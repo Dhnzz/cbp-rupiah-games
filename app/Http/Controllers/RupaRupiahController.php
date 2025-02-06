@@ -7,22 +7,6 @@ use Illuminate\Http\Request;
 class RupaRupiahController extends Controller
 {
     public function index(){
-        $questions = [
-            [
-                'id' => 1,
-                'images' => ['img1_part1.png', 'img1_part2.png', 'img1_part3.png'],
-                'answer' => '1000 Rupiah',
-                'options' => ['1000 Rupiah', '500 Rupiah', '2000 Rupiah', '5000 Rupiah']
-            ],
-            [
-                'id' => 2,
-                'images' => ['img2_part1.png', 'img2_part2.png', 'img2_part3.png'],
-                'answer' => '2000 Rupiah',
-                'options' => ['1000 Rupiah', '2000 Rupiah', '500 Rupiah', '10000 Rupiah']
-            ],
-            // Tambahkan data lainnya
-        ];
-
         return view('RupaRupiah.index');
     }
 
@@ -32,7 +16,20 @@ class RupaRupiahController extends Controller
         return view('RupaRupiah.question');
     }
 
-    public function result(){
-        return view('RupaRupiah.result');
+    public function result($score){
+        $hasil = ($score / 10) * 100;
+        $affirmation = "Anda Belum Beruntung ";
+        $poin = "0 Poin";
+        if ($hasil >= 25 && $hasil < 50) {
+            $affirmation = "Selamat Anda Mendapatkan ";
+            $poin = "1 Poin";
+        }else if($hasil >= 50 && $hasil < 100){
+            $affirmation = "Selamat Anda Mendapatkan ";
+            $poin = "2 Poin";
+        }else if($hasil == 100){
+            $affirmation = "Selamat Anda Mendapatkan ";
+            $poin = "3 Poin";
+        }
+        return view('RupaRupiah.result', compact('hasil','poin','affirmation'));
     }
 }

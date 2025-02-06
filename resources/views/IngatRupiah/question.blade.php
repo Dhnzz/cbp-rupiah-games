@@ -360,8 +360,8 @@
             }
         }
 
-        var initialTime = 2; // Waktu untuk mengingat kartu
-        var gameTime = 2; // Waktu bermain
+        var initialTime = 11; // Waktu untuk mengingat kartu
+        var gameTime = 20; // Waktu bermain
         var timerElement = document.getElementById('timer');
         const allCards = document.querySelectorAll('.card');
 
@@ -409,6 +409,9 @@
                         confirmButtonText: "Lihat Skor",
                         background: '#ffffff',
                         titleColor: '#dc3545',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
                         customClass: {
                             title: 'fw-bold text-danger',
                             popup: 'swal2-title-large',

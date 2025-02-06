@@ -45,6 +45,14 @@
 </style>
 
 <body>
+    <audio id="musik" autoplay loop>
+        <source src="{{ asset('assets/games-song.m4a') }}" type="audio/mpeg">
+    </audio>
+    <div class="d-flex w-100 d-none">
+        <button id="musicController" class="p-3 rounded m-3 ms-auto btn btn-warning text-danger border border-0">
+            <i id="logoMusic" class="fa-solid fa-volume-xmark" style="font-size: 25px"></i>
+        </button>
+    </div>
     <div class="d-flex justify-content-center">
         <a id="startButton" href="{{route('rupa_rupiah.question')}}"
             class="btn btn-warning d-inline rounded-pill px-5 button-start">START</a>
@@ -53,6 +61,20 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script>
+        document.getElementById("musicController").addEventListener("click", () => {
+            if (document.getElementById('musik').paused) {
+                document.getElementById('logoMusic').classList.remove('fa-volume-xmark');
+                document.getElementById('logoMusic').classList.add('fa-volume-high');
+                document.getElementById('musik').play();
+            } else {
+                document.getElementById('logoMusic').classList.remove('fa-volume-high');
+                document.getElementById('logoMusic').classList.add('fa-volume-xmark');
+                document.getElementById('musik').pause();
+            } // Play/Pause audio when the button is clicked.
+        });
+
+
+
         document.getElementById('startButton').addEventListener('click', function() {
             gsap.to('#startButton', {
                 scale: 1.1,
