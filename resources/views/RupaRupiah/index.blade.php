@@ -25,11 +25,13 @@
         height: 60px;
         z-index: 1000;
     }
-    .button-start:hover{
-        color:#e02020;
+
+    .button-start:hover {
+        color: #e02020;
     }
-    .button-start:active{
-        color:#f32424;
+
+    .button-start:active {
+        color: #f32424;
     }
 
     .wave {
@@ -54,7 +56,7 @@
         </button>
     </div>
     <div class="d-flex justify-content-center">
-        <a id="startButton" href="{{route('rupa_rupiah.question')}}"
+        <a id="startButton" href="{{ route('rupa_rupiah.question') }}"
             class="btn btn-warning d-inline rounded-pill px-5 button-start">START</a>
         <div class="wave rounded-pill"></div>
         <div class="wave rounded-pill"></div>
@@ -74,6 +76,14 @@
         });
 
 
+        document.addEventListener('DOMContentLoaded', () => {
+            let startButton = document.getElementById('startButton');
+            gsap.from(startButton, {
+                scale:0,
+                duration: 0.8,
+                ease: 'back.out'
+            })
+        });
 
         document.getElementById('startButton').addEventListener('click', function() {
             gsap.to('#startButton', {

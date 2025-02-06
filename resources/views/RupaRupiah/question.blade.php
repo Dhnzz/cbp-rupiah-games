@@ -294,7 +294,7 @@
         let currentQuestionIndex = 0;
         let score = 0;
         const totalQuestions = 10;
-        const timerDuration = 2; // 30 detik
+        const timerDuration = 30; // 30 detik
         let timer;
 
         function startQuiz() {

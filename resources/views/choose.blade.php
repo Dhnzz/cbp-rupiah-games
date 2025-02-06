@@ -23,6 +23,19 @@
         height: 250px;
         width: 333px;
         border-radius: 20px;
+        pointer-events: none;
+        /* Nonaktifkan hover dulu */
+    }
+
+    .rupaRupiah.animate-ready {
+        transition: all 0.3s ease;
+        pointer-events: auto;
+        /* Aktifkan hover setelah animasi */
+    }
+
+    .rupaRupiah.animate-ready:hover {
+        transform: scale(1.2) translateY(-10px);
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
     }
 
     .ingatRupiah {
@@ -33,6 +46,19 @@
         height: 200px;
         width: 333px;
         border-radius: 20px;
+        pointer-events: none;
+        /* Nonaktifkan hover dulu */
+    }
+
+    .ingatRupiah.animate-ready {
+        transition: all 0.3s ease;
+        pointer-events: auto;
+        /* Aktifkan hover setelah animasi */
+    }
+
+    .ingatRupiah.animate-ready:hover {
+        transform: scale(1.2) translateY(-10px);
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
     }
 </style>
 
@@ -48,10 +74,10 @@
     <div class="d-flex justify-content-center" style="margin-top: 200px">
         <div class="row" style="gap: 150px">
             <div class="col">
-                <button href="{{ route('rupa_rupiah') }}" class="rupaRupiah"></button>
+                <button id="button-choose" href="{{ route('rupa_rupiah') }}" class="rupaRupiah"></button>
             </div>
             <div class="col">
-                <button href="{{ route('ingat_rupiah') }}" class="ingatRupiah"></a>
+                <button id="button-choose" href="{{ route('ingat_rupiah') }}" class="ingatRupiah"></a>
             </div>
         </div>
     </div>
@@ -69,6 +95,21 @@
             } // Play/Pause audio when the button is clicked.
         });
 
+        document.addEventListener('DOMContentLoaded', () => {
+            let buttons = document.querySelectorAll('#button-choose');
+            buttons.forEach((button, index) => {
+                gsap.from(button, {
+                    scale: 0,
+                    duration: 0.8,
+                    ease: "back.inOut",
+                    stagger: 0.8,
+                    onComplete: function() {
+                        // Tambahkan class animate-ready setelah animasi GSAP selesai
+                        button.classList.add('animate-ready');
+                    }
+                });
+            });
+        });
 
         document.querySelector('.rupaRupiah').addEventListener('click', function() {
             window.location.href = "{{ route('rupa_rupiah') }}";
