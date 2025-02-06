@@ -49,7 +49,7 @@
 <body>
     <div class="d-flex justify-content-center">
 
-        <div id="scoreBox" class="bg-white rounded-4 p-5 text-center" style="margin-top: 150px; width: 500px">
+        <div id="scoreBox" class="p-5 text-center" style="margin-top: 120px; width: 500px; height: 500px">
             <h1 class="fw-bold text-danger mb-4">Skor Anda</h1>
             <div class="d-flex justify-content-center align-items-center mb-5">
                 <div class="bg-warning rounded-circle d-flex justify-content-center align-items-center"
@@ -57,11 +57,11 @@
                     <span class="fw-bold text-danger" style="font-size: 72px">{{ $hasil }}</span>
                 </div>
             </div>
-            <a id="startButton" href="{{ route('ingat_rupiah') }}"
+            <h3 class="fw-bold text-danger">{{$affirmation}}</h3>
+            <h3 class="bg-warning mb-5 p-3 fw-bold text-danger mx-auto rounded" style="width: max-content">{{$poin}}</h3>
+            <a id="startButton" href="{{ route('start') }}"
                 class="btn btn-warning rounded-pill px-5 fw-bold text-danger" style="font-size: 32px">Main Lagi</a>
         </div>
-        <div class="wave rounded-pill"></div>
-        <div class="wave rounded-pill"></div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>

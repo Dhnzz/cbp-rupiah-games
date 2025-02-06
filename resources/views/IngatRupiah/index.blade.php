@@ -21,7 +21,7 @@
 
     .button-start {
         position: absolute;
-        top: 75vh;
+        top: 63vh;
         color: #ca2424;
         font-weight: 900;
         font-size: 32px;
@@ -43,7 +43,7 @@
         position: absolute;
         width: 200px;
         height: 60px;
-        top: 75vh;
+        top: 63vh;
         border: 5px solid;
         opacity: 0;
         pointer-events: none;
@@ -51,10 +51,10 @@
 </style>
 
 <body>
-    <audio id="musik" loop>
-        <source src="{{ asset('assets/backsong_ingatRupiah.weba') }}" type="audio/mpeg">
+    <audio id="musik" autoplay loop>
+        <source src="{{ asset('assets/games-song.m4a') }}" type="audio/mpeg">
     </audio>
-    <div class="d-flex w-100">
+    <div class="d-flex w-100 d-none">
         <button id="musicController" class="p-3 rounded m-3 ms-auto btn btn-warning text-danger border border-0">
             <i id="logoMusic" class="fa-solid fa-volume-xmark" style="font-size: 25px"></i>
         </button>

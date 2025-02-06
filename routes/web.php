@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{RupaRupiahController, IngatRupiahController};
+use App\Http\Controllers\{RupaRupiahController, IngatRupiahController, StartController};
+
+
+Route::get('/', [StartController::class, 'index'])->name('start');
+Route::get('/choose', [StartController::class, 'choose'])->name('choose');
 
 Route::get('/RupaRupiah', [RupaRupiahController::class, 'index'])->name('rupa_rupiah');
 Route::get('/RupaRupiah/question', [RupaRupiahController::class, 'question'])->name('rupa_rupiah.question');

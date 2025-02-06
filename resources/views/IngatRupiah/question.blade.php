@@ -50,9 +50,13 @@
     }
 
     .card-front {
-        background-color: #007bff;
-        background-image: url('/assets/cbp-logo.png');
-        background-size: cover;
+        background-color: #ffc107;
+        color: #dc3644;
+        font-size: 48px;
+        font-weight: 700;
+
+        /* background-image: url('/assets/cbp-logo.png');
+        background-size: cover; */
     }
 
     .card-back {
@@ -77,6 +81,14 @@
 
 <body class="d-flex align-items-center">
 
+    <audio id="musik" autoplay loop>
+        <source src="{{ asset('assets/games-song.m4a') }}" type="audio/mpeg">
+    </audio>
+    <div class="d-flex w-100 d-none">
+        <button id="musicController" class="p-3 rounded m-3 ms-auto btn btn-warning text-danger border border-0">
+            <i id="logoMusic" class="fa-solid fa-volume-xmark" style="font-size: 25px"></i>
+        </button>
+    </div>
     <div class="container-fluid py-5">
         <div class="row mb-3">
             <div id="timer"
@@ -96,6 +108,18 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        document.getElementById("musicController").addEventListener("click", () => {
+            if (document.getElementById('musik').paused) {
+                document.getElementById('logoMusic').classList.remove('fa-volume-xmark');
+                document.getElementById('logoMusic').classList.add('fa-volume-high');
+                document.getElementById('musik').play();
+            } else {
+                document.getElementById('logoMusic').classList.remove('fa-volume-high');
+                document.getElementById('logoMusic').classList.add('fa-volume-xmark');
+                document.getElementById('musik').pause();
+            } // Play/Pause audio when the button is clicked.
+        });
+
         var timer = document.querySelector('#timer');
         var card = document.querySelectorAll('#card');
 
@@ -267,7 +291,7 @@
             cardElement.dataset.pair = card.pair;
             cardElement.innerHTML = `
                 <div class="card-inner">
-                    <div class="card-front"></div>
+                    <div class="card-front">?</div>
                     <div class="card-back">
                         <img src="{{ asset('assets/uang/${card.front}') }}" alt="card" style="width: 100%; height: 100%; object-fit: contain ;">
                     </div>
@@ -336,8 +360,8 @@
             }
         }
 
-        var initialTime = 3; // Waktu untuk mengingat kartu
-        var gameTime = 3; // Waktu bermain
+        var initialTime = 2; // Waktu untuk mengingat kartu
+        var gameTime = 2; // Waktu bermain
         var timerElement = document.getElementById('timer');
         const allCards = document.querySelectorAll('.card');
 
@@ -379,6 +403,9 @@
                     Swal.fire({
                         title: "Waktu Habis!",
                         icon: "error",
+                        // imageUrl: '{{asset('assets/albert-einstein.png')}}',
+                        // imageWidth: 200,
+                        // imageHeight: 200,
                         confirmButtonText: "Lihat Skor",
                         background: '#ffffff',
                         titleColor: '#dc3545',
