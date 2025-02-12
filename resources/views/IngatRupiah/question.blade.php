@@ -1,94 +1,71 @@
-<!doctype html>
-<html lang="en">
+@extends('layout.games')
+@push('style')
+    <style>
+        .card {
+            width: 217px;
+            height: 117px;
+            perspective: 1000px;
+            border: none;
+            padding: 0;
+        }
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ingat Rupiah</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-</head>
-<style>
-    body {
-        background-image: url('/assets/IngatRupiahQuestion.png');
-        background-size: cover;
-        height: 100vh;
-    }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
 
-    .card {
-        width: 217px;
-        height: 117px;
-        perspective: 1000px;
-        border: none;
-        padding: 0;
-    }
+        .card.flip .card-inner {
+            transform: rotateY(180deg);
+        }
 
-    .card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.6s;
-        transform-style: preserve-3d;
-    }
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+        }
 
-    .card.flip .card-inner {
-        transform: rotateY(180deg);
-    }
+        .card-front {
+            background-color: #ffc107;
+            color: #dc3644;
+            font-size: 48px;
+            font-weight: 700;
 
-    .card-front,
-    .card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-        color: white;
-    }
+            /* background-image: url('/assets/cbp-logo.png');
+                        background-size: cover; */
+        }
 
-    .card-front {
-        background-color: #ffc107;
-        color: #dc3644;
-        font-size: 48px;
-        font-weight: 700;
+        .card-back {
+            transform: rotateY(180deg);
+        }
 
-        /* background-image: url('/assets/cbp-logo.png');
-        background-size: cover; */
-    }
+        #card-container {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            justify-items: center;
+            align-items: center;
+            height: auto;
+        }
 
-    .card-back {
-        transform: rotateY(180deg);
-    }
+        .alert-background {
+            background-color: #ffc107;
+        }
+    </style>
+@endpush
 
-    #card-container {
-        margin: 0;
-        padding: 0;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        justify-items: center;
-        align-items: center;
-        height: auto;
-    }
-
-    .alert-background {
-        background-color: #ffc107;
-    }
-</style>
-
-<body class="d-flex align-items-center">
-
-    <audio id="musik" autoplay loop>
-        <source src="{{ asset('assets/games-song.m4a') }}" type="audio/mpeg">
-    </audio>
-    <div class="d-flex w-100 d-none">
-        <button id="musicController" class="p-3 rounded m-3 ms-auto btn btn-warning text-danger border border-0">
-            <i id="logoMusic" class="fa-solid fa-volume-xmark" style="font-size: 25px"></i>
-        </button>
-    </div>
+@section('content')
     <div class="container-fluid py-5">
         <div class="row mb-3">
             <div id="timer"
@@ -100,13 +77,9 @@
             <!-- Kartu akan dihasilkan di sini -->
         </div>
     </div>
+@endsection
 
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@push('script')
     <script>
         document.getElementById("musicController").addEventListener("click", () => {
             if (document.getElementById('musik').paused) {
@@ -356,12 +329,12 @@
         function checkGameStatus() {
             if (points === totalPairs) {
                 // Jika poin mencapai 8, redirect ke halaman hasil
-                window.location.href = "/IngatRupiah/result/" + points;
+                window.location.href = "/IngatRupiah/" + {{ $user_id }} + "/result/" + points;
             }
         }
 
-        var initialTime = 11; // Waktu untuk mengingat kartu
-        var gameTime = 20; // Waktu bermain
+        var initialTime = 11; // Waktu untuk mengingat kartu 11
+        var gameTime = 15; // Waktu bermain 15
         var timerElement = document.getElementById('timer');
         const allCards = document.querySelectorAll('.card');
 
@@ -403,7 +376,7 @@
                     Swal.fire({
                         title: "Waktu Habis!",
                         icon: "error",
-                        // imageUrl: '{{asset('assets/albert-einstein.png')}}',
+                        // imageUrl: '{{ asset('assets/albert-einstein.png') }}',
                         // imageWidth: 200,
                         // imageHeight: 200,
                         confirmButtonText: "Lihat Skor",
@@ -421,13 +394,12 @@
                     }).then((result) => {
                         /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
-                            window.location.href = "/IngatRupiah/result/" + points;
+                            window.location.href = "/IngatRupiah/" + {{ $user_id }} + "/result/" +
+                                points;
                         }
                     });
                 }
             }, 1000);
         }
     </script>
-</body>
-
-</html>
+@endpush

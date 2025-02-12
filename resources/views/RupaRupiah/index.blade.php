@@ -1,67 +1,80 @@
-<!doctype html>
-<html lang="en">
+@extends('layout.games')
+@push('style')
+    <style>
+        .button-start {
+            position: absolute;
+            top: 75vh;
+            color: #ca2424;
+            font-weight: 900;
+            font-size: 32px;
+            width: 200px;
+            height: 60px;
+            z-index: 1000;
+        }
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rupa Rupiah</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-</head>
-<style>
-    body {
-        background-image: url('assets/RupaRupiahStart.png');
-        background-size: cover
-    }
+        .button-start:hover {
+            color: #e02020;
+        }
 
-    .button-start {
-        position: absolute;
-        top: 75vh;
-        color: #ca2424;
-        font-weight: 900;
-        font-size: 32px;
-        width: 200px;
-        height: 60px;
-        z-index: 1000;
-    }
+        .button-start:active {
+            color: #f32424;
+        }
 
-    .button-start:hover {
-        color: #e02020;
-    }
+        .wave {
+            z-index: -1;
+            position: absolute;
+            width: 200px;
+            height: 60px;
+            top: 75vh;
+            border: 5px solid;
+            opacity: 0;
+            pointer-events: none;
+        }
 
-    .button-start:active {
-        color: #f32424;
-    }
+        .bg-bunga {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
 
-    .wave {
-        z-index: -1;
-        position: absolute;
-        width: 200px;
-        height: 60px;
-        top: 75vh;
-        border: 5px solid;
-        opacity: 0;
-        pointer-events: none;
-    }
-</style>
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
 
-<body>
-    <audio id="musik" autoplay loop>
-        <source src="{{ asset('assets/games-song.m4a') }}" type="audio/mpeg">
-    </audio>
-    <div class="d-flex w-100 d-none">
-        <button id="musicController" class="p-3 rounded m-3 ms-auto btn btn-warning text-danger border border-0">
-            <i id="logoMusic" class="fa-solid fa-volume-xmark" style="font-size: 25px"></i>
-        </button>
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .bunga-kiri img,
+        .bunga-tengah img,
+        .bunga-kanan img {
+            animation: rotate 20s linear infinite;
+        }
+
+        .bunga-tengah img {
+            animation-duration: 25s;
+        }
+    </style>
+@endpush
+
+@section('content')
+    <div class="d-flex justify-content-center w-100" style="z-index: 100; position: fixed; margin-top:200px">
+        <img src="{{asset('assets/rupaRupiah/logo.png')}}" class="mx-auto" alt="">
     </div>
     <div class="d-flex justify-content-center">
-        <a id="startButton" href="{{ route('rupa_rupiah.question') }}"
+        <a id="startButton" href="{{ route('rupa_rupiah.question', $user_id) }}"
             class="btn btn-warning d-inline rounded-pill px-5 button-start">START</a>
         <div class="wave rounded-pill"></div>
         <div class="wave rounded-pill"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+@endsection
+
+@push('script')
     <script>
         document.getElementById("musicController").addEventListener("click", () => {
             if (document.getElementById('musik').paused) {
@@ -79,7 +92,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             let startButton = document.getElementById('startButton');
             gsap.from(startButton, {
-                scale:0,
+                scale: 0,
                 duration: 0.8,
                 ease: 'back.out'
             })
@@ -110,6 +123,4 @@
             });
         });
     </script>
-</body>
-
-</html>
+@endpush

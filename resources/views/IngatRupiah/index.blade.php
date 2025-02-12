@@ -1,77 +1,52 @@
-<!doctype html>
-<html lang="en">
+@extends('layout.games')
+@push('style')
+    <style>
+        .button-start {
+            position: absolute;
+            top: 63vh;
+            color: #ca2424;
+            font-weight: 900;
+            font-size: 32px;
+            width: 200px;
+            height: 60px;
+            z-index: 1000;
+        }
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ingat Rupiah</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!-- FontAwesome 6.2.0 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<style>
-    body {
-        background-image: url('/assets/IngatRupiahKertas.png');
-        background-size: cover
-    }
+        .button-start:hover {
+            color: #e02020;
+        }
 
-    .button-start {
-        position: absolute;
-        top: 63vh;
-        color: #ca2424;
-        font-weight: 900;
-        font-size: 32px;
-        width: 200px;
-        height: 60px;
-        z-index: 1000;
-    }
+        .button-start:active {
+            color: #f32424;
+        }
 
-    .button-start:hover {
-        color: #e02020;
-    }
+        .wave {
+            z-index: -1;
+            position: absolute;
+            width: 200px;
+            height: 60px;
+            top: 63vh;
+            border: 5px solid;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+@endpush
 
-    .button-start:active {
-        color: #f32424;
-    }
-
-    .wave {
-        z-index: -1;
-        position: absolute;
-        width: 200px;
-        height: 60px;
-        top: 63vh;
-        border: 5px solid;
-        opacity: 0;
-        pointer-events: none;
-    }
-</style>
-
-<body>
-    <audio id="musik" autoplay loop>
-        <source src="{{ asset('assets/games-song.m4a') }}" type="audio/mpeg">
-    </audio>
-    <div class="d-flex w-100 d-none">
-        <button id="musicController" class="p-3 rounded m-3 ms-auto btn btn-warning text-danger border border-0">
-            <i id="logoMusic" class="fa-solid fa-volume-xmark" style="font-size: 25px"></i>
-        </button>
+@section('content')
+    <div class="d-flex justify-content-center w-100" style="z-index: 100; position: fixed; margin-top:200px">
+        <img src="{{ asset('assets/ingatRupiah/logo.png') }}" class="mx-auto" alt="">
     </div>
     <div class="d-flex justify-content-center">
-        <a id="startButton" href="{{ route('ingat_rupiah.question') }}"
+        <a id="startButton" href="{{ route('ingat_rupiah.question', $user_id) }}"
             class="btn btn-warning d-inline rounded-pill px-5 button-start">START</a>
         <div class="wave rounded-pill"></div>
         <div class="wave rounded-pill"></div>
     </div>
+@endsection
 
 
-    <!-- (Optional) Use CSS or JS implementation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
-        integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+@push('script')
     <script>
         document.getElementById("musicController").addEventListener("click", () => {
             if (document.getElementById('musik').paused) {
@@ -112,6 +87,4 @@
             });
         });
     </script>
-</body>
-
-</html>
+@endpush
